@@ -9,5 +9,8 @@ const morgan = require('morgan');
  */
 module.exports = function(app) {
     app.use(express.json());
-    app.use(morgan('tiny'));
+    if(app.get('env') === 'development') {
+        app.use(morgan('tiny'));
+        console.log('Morgan enabled...');
+    }
 }

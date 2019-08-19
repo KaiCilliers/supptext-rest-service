@@ -13,6 +13,7 @@ const port = process.env.port || 3004;
  * Startup Code
  */
 require('./startup/routes')(app);
+require('./startup/prod')(app);
 
 {
     /**

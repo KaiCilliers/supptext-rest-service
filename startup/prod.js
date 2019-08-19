@@ -10,6 +10,10 @@ const compression = require('compression')
  * Exports
  */
 module.exports = function(app) {
-    app.use(helmet());
-    app.use(compression());
+    if(app.get('env') === 'production') {
+        app.use(helmet());
+        app.use(compression());
+        console.log('Helmet enabled...');
+        console.log('Compression enabled...');
+    }
 }
