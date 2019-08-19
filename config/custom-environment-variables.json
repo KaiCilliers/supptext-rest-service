@@ -1,7 +1,4 @@
 {
-    "mail": {
-        "password": "supptext_password"
-    },
     "db": {
         "password": "supptext_db_password"
     }

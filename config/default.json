@@ -1,5 +1,5 @@
 {
-    "name": "My Express App",
+    "name": "My Express App - Default",
     "db": {
         "host": "localhost",
         "user": "api",

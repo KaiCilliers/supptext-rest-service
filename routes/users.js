@@ -3,10 +3,6 @@
  */
 const express = require('express');
 const debug = require('debug')('supptext:users');
-
-/**
- * Router Setup
- */
 const router = express.Router();
 
 /**

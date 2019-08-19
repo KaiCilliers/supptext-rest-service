@@ -1,9 +1,7 @@
 /**
  * Dependencies
  */
-// Protects application from basic web vulnerabilities with headers
 const helmet = require('helmet');
-// Compresses http response sent to client
 const compression = require('compression');
 const debug = require('debug')('supptext:prod');
 
