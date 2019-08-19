@@ -16,9 +16,17 @@ app.get('/', (req, res, next) => {
     console.log('get');
     res.send('get');
 });
-app.get('/api/data', (req, res, next) => {
+app.get('/api/data', (req, res) => {
     console.log([1,2,3]);
     res.send([1,2,3]);
+});
+app.get('/api/data/:id', (req, res) => {
+    res.send(req.params.id);
+});
+// http://localhost:3004/api/data/1996/6/9?sortBy="asc"
+app.get('/api/data/:year/:month/:day', (req, res) => {
+    console.log(req.query);
+    res.send(req.params);
 });
 
 /**
