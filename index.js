@@ -3,6 +3,7 @@
  */
 const express = require('express');
 const config = require('config');
+const debug = require('debug')('supptext:startup');
 
 /**
  * Setup
@@ -17,9 +18,9 @@ require('./startup/routes')(app);
 require('./startup/prod')(app);
 
 // Configuration (change NODE_ENV to get diff results)
-console.log('Application Name: ' + config.get('name'));
-console.log('Mail Server: ' + config.get('mail.host'));
-console.log('Mail Password: ' + config.get('mail.password'));
+debug('Application Name: ' + config.get('name'));
+debug('Mail Server: ' + config.get('mail.host'));
+debug('Mail Password: ' + config.get('mail.password'));
 
 {
     /**
@@ -65,4 +66,4 @@ app.delete('/', (req, res, next) => {
 /**
  * Listener
  */
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+app.listen(port, () => debug(`Listening on port ${port}...`));
