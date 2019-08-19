@@ -9,6 +9,10 @@ app.get('/', (req, res, next) => {
     console.log('get');
     res.send('get');
 });
+app.get('/api/data', (req, res, next) => {
+    console.log([1,2,3]);
+    res.send([1,2,3]);
+});
 
 app.post('/', (req, res, next) => {
     console.log('post');
