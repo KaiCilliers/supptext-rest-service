@@ -6,24 +6,32 @@ const debug = require('debug')('supptext:db');
 const mysql = require('mysql');
 
 /**
- * Export db object seperately
- * to allow calling queries on it
+ * Rather create a pool
+ * This is safer
  */
-let db = mysql.createConnection(config.get('db'));
+let pool = mysql.createPool(config.get('pool_db'));
 
 /**
  * Start Database connection
  */
 module.exports = {
     connect: function () {
-        db.connect((err) => {
+        pool.getConnection((err, connection) => {
             // TODO this error catch needs to be replaced by global express catch later
-            if(err) {
-                debug('Database connection error: ' + err.stack);
-                return;
+            if (err) {
+                if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+                    debug('Database connection was closed.')
+                }
+                if (err.code === 'ER_CON_COUNT_ERROR') {
+                    debug('Database has too many connections.')
+                }
+                if (err.code === 'ECONNREFUSED') {
+                    debug('Database connection was refused.')
+                }
             }
-            debug('Database connection successfull with id: ' + db.threadId)
+            if (connection) connection.release()
+            return
         })
     },
-    db: db
+    db: pool
   };

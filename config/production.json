@@ -4,5 +4,11 @@
         "host": "localhost",
         "user": "api",
         "database": "sql_supptext_prod"
+    },
+    "pool_db": {
+        "connectionLimit": 10,
+        "host": "localhost",
+        "user": "api",
+        "database": "sql_supptext_prod"
     }
 }

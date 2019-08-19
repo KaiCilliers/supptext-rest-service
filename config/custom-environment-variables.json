@@ -1,5 +1,8 @@
 {
     "db": {
         "password": "supptext_db_password"
+    },
+    "pool_db": {
+        "password": "supptext_db_password"
     }
 }
