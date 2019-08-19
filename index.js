@@ -10,6 +10,12 @@ const app = express();
 const port = process.env.port || 3004;
 
 /**
+ * Startup Code
+ */
+require('./startup/routes')(app);
+
+{
+    /**
  * GET
  */
 app.get('/', (req, res, next) => {
@@ -22,11 +28,6 @@ app.get('/api/data', (req, res) => {
 });
 app.get('/api/data/:id', (req, res) => {
     res.send(req.params.id);
-});
-// http://localhost:3004/api/data/1996/6/9?sortBy="asc"
-app.get('/api/data/:year/:month/:day', (req, res) => {
-    console.log(req.query);
-    res.send(req.params);
 });
 
 /**
@@ -52,6 +53,7 @@ app.delete('/', (req, res, next) => {
     console.log('delete');
     res.send('delete');
 });
+}
 
 /**
  * Listener
