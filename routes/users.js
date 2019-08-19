@@ -4,6 +4,7 @@
 const express = require('express');
 const debug = require('debug')('supptext:users');
 const router = express.Router();
+const { db } = require('../startup/db');
 
 /**
  * GET
@@ -13,7 +14,7 @@ router.get('/', (req, res, next) => {
     res.send('get');
 });
 router.get('/:id', (req, res) => {
-    con.query(`SELECT * FROM users LIMIT ${req.params.id}`, (err, rows, fields) => {
+    db.query(`SELECT * FROM users LIMIT ${req.params.id}`, (err, rows, fields) => {
         if (err) throw err
         debug(rows);
         res.send(rows);

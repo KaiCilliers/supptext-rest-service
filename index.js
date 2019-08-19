@@ -15,7 +15,7 @@ const port = process.env.port || 3004;
  */
 require('./startup/display-config-values')();
 require('./startup/routes')(app);
-require('./startup/db')();
+require('./startup/db').connect();
 require('./startup/prod')(app);
 
 /**
