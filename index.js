@@ -2,6 +2,7 @@
  * Dependencies
  */
 const express = require('express');
+const config = require('config');
 
 /**
  * Setup
@@ -14,6 +15,11 @@ const port = process.env.port || 3004;
  */
 require('./startup/routes')(app);
 require('./startup/prod')(app);
+
+// Configuration (change NODE_ENV to get diff results)
+console.log('Application Name: ' + config.get('name'));
+console.log('Mail Server: ' + config.get('mail.host'));
+console.log('Mail Password: ' + config.get('mail.password'));
 
 {
     /**
