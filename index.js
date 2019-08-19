@@ -4,18 +4,27 @@
 const express = require('express');
 const config = require('config');
 const debug = require('debug')('supptext:startup');
+const mysql = require('mysql');
 
 /**
  * Setup
  */
 const app = express();
 const port = process.env.port || 3004;
+const con = mysql.createConnection(config.get('db'));
 
 /**
  * Startup Code
  */
 require('./startup/routes')(app);
 require('./startup/prod')(app);
+con.connect((err) => {
+    if(err) {
+        debug('Database connection error: ' + err.stack);
+        return;
+    }
+    debug('Database connection successfull with id: ' + con.threadId)
+});
 
 // Configuration (change NODE_ENV to get diff results)
 debug('Application Name: ' + config.get('name'));
@@ -35,7 +44,11 @@ app.get('/api/data', (req, res) => {
     res.send([1,2,3]);
 });
 app.get('/api/data/:id', (req, res) => {
-    res.send(req.params.id);
+    con.query(`SELECT * FROM users LIMIT ${req.params.id}`, (err, rows, fields) => {
+        if (err) throw err
+        debug(rows);
+        res.send(rows);
+    });
 });
 
 /**

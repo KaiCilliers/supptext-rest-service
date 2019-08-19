@@ -1,3 +1,8 @@
 {
-    "name": "My Express App"
+    "name": "My Express App",
+    "db": {
+        "host": "localhost",
+        "user": "api",
+        "database": "sql_supptext"
+    }
 }

@@ -2,5 +2,10 @@
     "name": "My Express App - Production",
     "mail": {
         "host": "prod-mail-server"
+    },
+    "db": {
+        "host": "localhost",
+        "user": "api",
+        "database": "sql_supptext_prod"
     }
 }

@@ -2,5 +2,10 @@
     "name": "My Express App - Test Environment",
     "mail": {
         "host": "test-mail-server"
+    },
+    "db": {
+        "host": "localhost",
+        "user": "api",
+        "database": "sql_supptext_test"
     }
 }
