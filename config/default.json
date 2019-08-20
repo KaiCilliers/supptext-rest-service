@@ -1,3 +1,4 @@
 {
-    "name": "My Express App - Default"
+    "name": "My Express App - Default",
+    "db": "mongodb://localhost/supptext"
 }
