@@ -2,7 +2,6 @@
  * Dependencies
  */
 const express = require('express');
-const mongoose = require('mongoose');
 const { User, joiValidate } = require('../models/user');
 const router = express.Router();
 

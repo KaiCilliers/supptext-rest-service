@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema({
     status: {
         type: String,
         minlength: 1,
-        maxlength: 255
+        maxlength: 255,
+        default: 'Supp! Want to chat?'
     }
 });
 const User = mongoose.model('User', userSchema);
@@ -53,5 +54,7 @@ function validateUser(user) {
 /**
  * Exports
  */
-module.exports.User = User;
-module.exports.joiValidate = validateUser;
+module.exports = {
+    User: User,
+    joiValidate: validateUser
+}
