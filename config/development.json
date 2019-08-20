@@ -1,14 +1,3 @@
 {
-    "name": "My Express App - Development",
-    "db": {
-        "host": "localhost",
-        "user": "api",
-        "database": "sql_supptext"
-    },
-    "pool_db": {
-        "connectionLimit": 10,
-        "host": "localhost",
-        "user": "api",
-        "database": "sql_supptext"
-    }
+    "name": "My Express App - Development"
 }

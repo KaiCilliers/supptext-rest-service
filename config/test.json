@@ -1,14 +1,3 @@
 {
-    "name": "My Express App - Test Environment",
-    "db": {
-        "host": "localhost",
-        "user": "api",
-        "database": "sql_supptext_test"
-    },
-    "pool_db": {
-        "connectionLimit": 10,
-        "host": "localhost",
-        "user": "api",
-        "database": "sql_supptext_test"
-    }
+    "name": "My Express App - Test Environment"
 }
