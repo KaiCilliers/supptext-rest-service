@@ -10,10 +10,9 @@ const router = express.Router();
 /**
  * GET
  */
-router.get('/', (req, res, next) => {
-    let selectTemplate = 'SELECT * FROM ??';
-    let inserts = ['users'];
-    let query = mysql.format(selectTemplate, inserts);
+router.get('/', (req, res) => {
+    let proc = 'CALL ??';
+    let query = mysql.format(proc, ['getAllUsers']);
     const result = db.query(query, (err, response) => {
         if (err) return debug(`Select error: ${err}`);
         debug(response);
