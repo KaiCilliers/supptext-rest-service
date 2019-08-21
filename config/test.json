@@ -1,4 +1,5 @@
 {
     "name": "My Express App - Test Environment",
-    "db": "mongodb://localhost/supptext_test"
+    "db": "mongodb://localhost/supptext_test",
+    "jwtPrivateKey": "1234"
 }
