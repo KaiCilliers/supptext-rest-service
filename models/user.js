@@ -2,6 +2,8 @@
  * Dependencies
  */
 const Joi = require('@hapi/joi');
+const config = require('config');
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 /**
@@ -32,8 +34,13 @@ const userSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 255,
         default: 'Supp! Want to chat?'
-    }
+    },
+    isDev: Boolean
 });
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({ _id: this._id, isDev: this.isDev }, config.get('jwtPrivateKey'));
+    return token;
+}
 const User = mongoose.model('User', userSchema);
 
 /**
