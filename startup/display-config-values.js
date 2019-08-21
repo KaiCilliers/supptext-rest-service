@@ -6,4 +6,5 @@ const debug = require('debug')('supptext:config-values');
 
 module.exports = function() {
     debug('Application Name: ' + config.get('name'));
+    debug('Database: ' + config.get('db'));
 }
