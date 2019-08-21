@@ -1,0 +1,13 @@
+/**
+ * Dependencies
+ */
+const mongoose = require('mongoose');
+
+/**
+ * Validate an ObjectId
+ */
+module.exports = function(req, res, next) {
+    if(!mongoose.Types.ObjectId.isValid(req.params.id))
+        return res.status(404).send('Invalid ID');
+    next();
+}

@@ -21,4 +21,9 @@ require('./startup/db')();
 /**
  * Listener
  */
-app.listen(port, () => debug(`Listening on port ${port}...`));
+const server = app.listen(port, () => debug(`Listening on port ${port}...`));
+
+/**
+ * Exports
+ */
+module.exports = server;
