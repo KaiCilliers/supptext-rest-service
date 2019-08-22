@@ -32,7 +32,12 @@ describe('/api/rooms', () => {
      */
     describe('GET /', () => {
         /**
-         * Main Body for happy path
+         * Locals
+         */
+        let token;
+        
+        /**
+         * Valid call to server
          */
         const exec = async () => {
             return await request(server)
@@ -85,7 +90,7 @@ describe('/api/rooms', () => {
         let token;
 
         /**
-         * Main Body for happy path
+         * Valid call to server
          */
         const exec = async () => {
             return await request(server)
