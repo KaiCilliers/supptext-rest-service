@@ -18,7 +18,8 @@ const roomSchema = new mongoose.Schema({
         required: true
     },
     last_message: {
-        type: Date
+        type: Date,
+        default: null
     }
 });
 const Room = mongoose.model('Room', roomSchema);
