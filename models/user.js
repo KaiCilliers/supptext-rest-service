@@ -35,10 +35,13 @@ const userSchema = new mongoose.Schema({
         maxlength: 255,
         default: 'Supp! Want to chat?'
     },
-    isDev: Boolean
+    is_dev: {
+        type: Boolean,
+        default: true
+    }
 });
 userSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({ _id: this._id, isDev: this.isDev }, config.get('jwtPrivateKey'));
+    const token = jwt.sign({ _id: this._id, is_dev: this.is_dev }, config.get('jwtPrivateKey'));
     return token;
 }
 const User = mongoose.model('User', userSchema);
