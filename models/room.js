@@ -10,7 +10,6 @@ const mongoose = require('mongoose');
 const roomSchema = new mongoose.Schema({
     created_at: {
         type: Date,
-        required: true,
         default: Date.now
     },
     private: {
@@ -31,7 +30,7 @@ const Room = mongoose.model('Room', roomSchema);
  */
 function validateRoom(room) {
     const schema = {
-        created_at: Joi.date().required(),
+        created_at: Joi.date(),
         private: Joi.boolean().required(),
         last_message: Joi.date()
     }

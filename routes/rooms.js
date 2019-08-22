@@ -12,9 +12,47 @@ const router = express.Router();
 /**
  * GET
  */
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     const rooms = await Room.find();
-    res.send(rooms);
+    res.status(200).send(rooms);
+});
+router.get('/:id', [auth, validateObjectId], async (req, res) => {
+    const room = await Room.findById(req.params.id);
+    if(!room) return res.status(404).send('Room with provided ID not found');
+    res.status(200).send(room);
+});
+
+/**
+ * POST
+ */
+router.post('/', [auth, validateBody(joiValidate)], async (req, res) => {
+    const room = new Room({
+        private: req.body.private
+    });
+    await room.save();
+    res.status(201).send(room);
+});
+
+/**
+ * PUT
+ */
+router.put('/:id', [auth, validateObjectId, validateBody(joiValidate)], async (req, res) => {
+    const room = await Room.findById(req.params.id);
+    if(!room) return res.status(404).send('Room with provided ID not found');
+
+    room.private = req.body.private;
+    room.save();
+
+    res.status(200).send(room);
+});
+
+/**
+ * DELETE
+ */
+router.delete('/:id', [auth, validateObjectId], async (req, res) => {
+    const room = await Room.findByIdAndRemove(req.params.id);
+    if(!room) return res.status(404).send('Room with provided ID not found');
+    res.send(room);
 });
 
 /**
