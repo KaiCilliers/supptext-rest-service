@@ -4,30 +4,33 @@
 const express = require('express');
 const { User, joiValidate } = require('../models/user');
 const validateObjectId = require('../middleware/validateObjectId');
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
+const validateBody = require('../middleware/validate');
+const debug = require('debug')('supptext:routes_users');
 const router = express.Router();
 
 /**
  * GET
  */
-router.get('/', async (req, res) => {
-    const users = await User.find().sort('first_name');
+router.get('/', [auth, admin], async (req, res) => {
+    const users = await User.find();
     res.send(users);
 });
-router.get('/:id', validateObjectId, async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if(!user) return res.status(404).send('User with provided ID not found');
+router.get('/me', auth, async (req, res) => {
+    const user = await User.findById(req.user._id);
     res.send(user);
 });
 
 /**
  * POST
  */
-router.post('/', async (req, res) => {
-    const { error } = joiValidate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+router.post('/', validateBody(joiValidate), async (req, res) => {
+    const phoneCheck = User.findOne({ phone: req.body.phone });
 
-    // Using let because when saving, wthe ID will be sent to us and we want to reset genre with the ID attribute
-    let user = new User({
+    if(phoneCheck.length > 0) return res.status(400).send('User already exists with provided phone number');
+
+    const user = new User({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         phone: req.body.phone,
@@ -35,25 +38,23 @@ router.post('/', async (req, res) => {
     });
     
     await user.save();
-
-    res.send(user);
+    
+    res.status(201).send(user);
 });
 
 /**
- * PUT
+ * PATCH
  */
-router.put('/:id', async (req, res) => {
-    const { error } = joiValidate(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
-
-    const user = await User.findByIdAndUpdate(req.params.id, {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        phone: req.body.phone,
-        status: req.body.status
-    }, { new: true });
-
+router.patch('/:id', [auth, validateObjectId, validateBody(joiValidate)], async (req, res) => {
+    let user = await User.findById(req.params.id);
     if(!user) return res.status(404).send('User with provided ID not found');
+
+    user = {
+        first_name: req.body.first_name ? req.body.first_name : user.first_name,
+        last_name: req.body.last_name ? req.body.last_name : user.last_name,
+        phone: user.phone,
+        status: req.body.status ? req.body.status : user.status
+    };
 
     res.send(user);
 });
@@ -61,7 +62,7 @@ router.put('/:id', async (req, res) => {
 /**
  * DELETE
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', [auth, admin, validateObjectId], async (req, res) => {
     const user = await User.findByIdAndRemove(req.params.id);
     if(!user) return res.status(404).send('User with provided ID not found');
     res.send(user);

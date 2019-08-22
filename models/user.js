@@ -35,13 +35,13 @@ const userSchema = new mongoose.Schema({
         maxlength: 255,
         default: 'Supp! Want to chat?'
     },
-    is_dev: {
+    isAdmin: {
         type: Boolean,
-        default: true
+        default: false
     }
 });
 userSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({ _id: this._id, is_dev: this.is_dev }, config.get('jwtPrivateKey'));
+    const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('jwtPrivateKey'));
     return token;
 }
 const User = mongoose.model('User', userSchema);
@@ -53,9 +53,9 @@ const User = mongoose.model('User', userSchema);
  */
 function validateUser(user) {
     const schema = {
-        first_name: Joi.string().min(2).max(50).required(),
-        last_name: Joi.string().min(3).max(50).required(),
-        phone: Joi.string().min(10).max(15).required(),
+        first_name: Joi.string().min(2).max(50),
+        last_name: Joi.string().min(3).max(50),
+        phone: Joi.string().min(10).max(15),
         status: Joi.string().min(1).max(255)
     };
     return Joi.validate(user, schema);
