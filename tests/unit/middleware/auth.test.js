@@ -1,7 +1,13 @@
+/**
+ * Dependencies
+ */
 const {User} = require('../../../models/user');
 const auth = require('../../../middleware/auth');
 const mongoose = require('mongoose');
 
+/**
+ * Test Suite
+ */
 describe('auth middleware', () => {
     it('should populate req.user with the payload of a valid JWT', () => {
         const user = {
