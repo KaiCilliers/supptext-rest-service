@@ -314,7 +314,7 @@ describe('/api/participants', () => {
         it('should return the newly created participant', async () => {
             const res = await exec();
             expect(res.body).toHaveProperty('room._id', roomId.toHexString());
-            expect(res.body).toHaveProperty('room.private', );
+            expect(res.body).toHaveProperty('room.private');
             expect(res.body).toHaveProperty('user._id', userId.toHexString());
             expect(res.body).toHaveProperty('user.first_name');
             expect(res.body).toHaveProperty('user.phone');
