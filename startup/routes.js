@@ -7,6 +7,7 @@ const debug = require('debug')('supptext:routes');
 const users = require('../routes/users');
 const rooms = require('../routes/rooms');
 const participants = require('../routes/participants');
+const messages = require('../routes/messages');
 
 /**
  * Setup Middleware
@@ -20,4 +21,5 @@ module.exports = function(app) {
     app.use('/api/users', users);
     app.use('/api/rooms', rooms);
     app.use('/api/participants', participants);
+    app.use('/api/messages', messages);
 }
