@@ -5,6 +5,14 @@ const express = require('express');
 const debug = require('debug')('supptext:startup');
 
 /**
+ * Throw async errors synchronously
+ */
+process.on('unhandledRejection', (ex) => {
+    throw ex;
+});
+  
+
+/**
  * Setup
  */
 const app = express();
@@ -16,7 +24,9 @@ const port = process.env.port || 3004;
 require('./startup/display-config-values')();
 require('./startup/routes')(app);
 require('./startup/db')();
-//require('./startup/prod')(app);
+require('./startup/config')();
+require('./startup/validation')();
+require('./startup/prod')(app);
 
 /**
  * Listener
