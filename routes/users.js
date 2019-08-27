@@ -8,6 +8,8 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const validateBody = require('../middleware/validate');
 const debug = require('debug')('supptext:routes_users');
+const bcrypt = require('bcrypt');
+const _ = require('lodash');
 const router = express.Router();
 
 /**
@@ -26,20 +28,24 @@ router.get('/me', auth, async (req, res) => {
  * POST
  */
 router.post('/', validateBody(joiValidate), async (req, res) => {
-    const phoneCheck = User.findOne({ phone: req.body.phone });
+    let user = User.findOne({ phone: req.body.phone });
+    if (user.length > 0) return res.status(400).send('User already registered with provided phone number.');
 
-    if(phoneCheck.length > 0) return res.status(400).send('User already exists with provided phone number');
+    user = new User(
+        _.pick(req.body, [
+            'first_name', 'last_name', 'phone', 'password', 'status'
+        ])
+    );
 
-    const user = new User({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        phone: req.body.phone,
-        status: req.body.status
-    });
-    
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
+
     await user.save();
     
-    res.status(201).send(user);
+    const token = user.generateAuthToken();
+    res.status(201).header('x-auth-token', token).send(
+        _.pick(user, ['_id', 'first_name', 'last_name', 'phone', 'status'])
+    );
 });
 
 /**
