@@ -72,12 +72,14 @@ describe('/api/users', () => {
                 {
                     first_name: "n1",
                     last_name: "sur",
-                    phone: '1234567890'
+                    phone: '1234567890',
+                    password: 'password1'
                 },
                 {
                     first_name: "n2",
                     last_name: "su2",
-                    phone: '12345678901'
+                    phone: '12345678901',
+                    password: 'password2'
                 }
             ]);
             const res = await exec();
@@ -114,7 +116,8 @@ describe('/api/users', () => {
             const user = new User({
                 first_name: 'fname',
                 last_name: 'lname',
-                phone: '01234567890'
+                phone: '01234567890',
+                password: 'password1'
             });
             await user.save();
             token = user.generateAuthToken();
@@ -158,7 +161,8 @@ describe('/api/users', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: 'h'
+                status: 'h',
+                password: 'password1'
             }
         });
 
@@ -239,6 +243,7 @@ describe('/api/users', () => {
             expect(res.body).toHaveProperty('last_name', payload.last_name);
             expect(res.body).toHaveProperty('phone', payload.phone);
             expect(res.body).toHaveProperty('status', payload.status);
+            // TODO Test for x-auth-header
         });
     });
 
@@ -269,7 +274,8 @@ describe('/api/users', () => {
                 first_name: firstName,
                 last_name: lastName,
                 phone: phone,
-                status: status
+                status: status,
+                password: 'password1'
             });
             await user.save();
 
@@ -279,7 +285,8 @@ describe('/api/users', () => {
                 first_name: '11',
                 last_name: '111',
                 phone: '0987654321',
-                status: 'a'
+                status: 'a',
+                password: 'password1'
             }
         });
         afterEach(async () => {
@@ -403,7 +410,8 @@ describe('/api/users', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: 'h'
+                status: 'h',
+                password: 'password1'
             });
             await user.save();
 

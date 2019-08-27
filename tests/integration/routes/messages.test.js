@@ -80,7 +80,8 @@ describe('/api/messages', () => {
                     user: {
                         _id: user1Id,
                         first_name: '12',
-                        phone: '1234567890'
+                        phone: '1234567890',
+                        password: 'password1'
                     },
                     content: '1',
                     sent: true,
@@ -94,7 +95,8 @@ describe('/api/messages', () => {
                     user: {
                         _id: user2Id,
                         first_name: '33',
-                        phone: '0987654321'
+                        phone: '0987654321',
+                        password: 'password2'
                     },
                     content: '2',
                     sent: true,
@@ -174,7 +176,8 @@ describe('/api/messages', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: '1'
+                status: '1',
+                password: 'password1'
             });
             await user.save();
 
@@ -197,7 +200,8 @@ describe('/api/messages', () => {
                 user: {
                     _id: userInDb._id,
                     first_name: userInDb.first_name,
-                    phone: userInDb.phone
+                    phone: userInDb.phone,
+                    password: userInDb.password
                 },
                 content: '1',
                 sent: true,
@@ -242,7 +246,8 @@ describe('/api/messages', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: '1'
+                status: '1',
+                password: 'password1'
             });
             await user.save();
 
@@ -360,7 +365,8 @@ describe('/api/messages', () => {
                 user: {
                     _id: mongoose.Types.ObjectId(),
                     first_name: '12',
-                    phone: '1234567890'
+                    phone: '1234567890',
+                    password: 'password1'
                 },
                 content: '1',
                 sent: true,

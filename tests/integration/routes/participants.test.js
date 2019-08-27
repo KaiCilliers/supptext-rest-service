@@ -84,7 +84,8 @@ describe('/api/participants', () => {
                         first_name: '11',
                         last_name: '123',
                         phone: '1234567890',
-                        status: '1'
+                        status: '1',
+                        password: 'password1'
                     },
                     admin: true,
                     creator: true
@@ -101,7 +102,8 @@ describe('/api/participants', () => {
                         first_name: '22',
                         last_name: '333',
                         phone: '12345678901',
-                        status: '2'
+                        status: '2',
+                        password: 'password1'
                     },
                     admin: false,
                     creator: false
@@ -178,7 +180,8 @@ describe('/api/participants', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: '1'
+                status: '1',
+                password: 'password1'
             });
             await user.save();
 
@@ -202,7 +205,8 @@ describe('/api/participants', () => {
                 user: {
                     _id: userInDb._id,
                     first_name: userInDb.first_name,
-                    phone: userInDb.phone
+                    phone: userInDb.phone,
+                    password: userInDb.password
                 },
                 admin: false,
                 creator: false
@@ -244,7 +248,8 @@ describe('/api/participants', () => {
                 first_name: '12',
                 last_name: '123',
                 phone: '1234567890',
-                status: '1'
+                status: '1',
+                password: 'password1'
             });
             await user.save();
 
@@ -346,7 +351,8 @@ describe('/api/participants', () => {
                 user: {
                     _id: mongoose.Types.ObjectId(),
                     first_name: '12',
-                    phone: '1234567890'
+                    phone: '1234567890',
+                    password: 'password1'
                 },
                 admin: false,
                 creator: false
