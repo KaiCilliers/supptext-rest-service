@@ -23,6 +23,7 @@
   "homepage": "https://github.com/KaiCilliers/supptext-rest-service#readme",
   "dependencies": {
     "@hapi/joi": "^15.1.1",
+    "bcrypt": "^3.0.6",
     "compression": "^1.7.4",
     "config": "^3.2.2",
     "debug": "^4.1.1",
@@ -31,6 +32,7 @@
     "jest": "^24.9.0",
     "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mongoose": "^5.6.9",
     "morgan": "^1.9.1"
   },
