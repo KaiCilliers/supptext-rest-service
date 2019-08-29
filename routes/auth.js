@@ -25,7 +25,7 @@ router.post('/', validateBody(validateLogin), async (req, res) => {
     if(!validPassword) return res.status(400).send('Invalid credentials');
 
     const token = user.generateAuthToken();
-    debug(token);
+
     res.send(token);
 });
 // create user and check in postman what token is sent back when you auth routejksadiopsioadnh
