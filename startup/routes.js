@@ -8,6 +8,7 @@ const users = require('../routes/users');
 const rooms = require('../routes/rooms');
 const participants = require('../routes/participants');
 const messages = require('../routes/messages');
+const auth = require('../routes/auth');
 
 /**
  * Setup Middleware
@@ -22,4 +23,5 @@ module.exports = function(app) {
     app.use('/api/rooms', rooms);
     app.use('/api/participants', participants);
     app.use('/api/messages', messages);
+    app.use('/api/auth', auth);
 }
