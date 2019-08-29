@@ -3,14 +3,16 @@
  */
 const express = require('express');
 const debug = require('debug')('supptext:startup');
+const logger = require('./config/winston');
 
 /**
  * Throw async errors synchronously
  */
 process.on('unhandledRejection', (ex) => {
+    logger.error(new Error(ex));
     throw ex;
 });
-  
+
 
 /**
  * Setup
