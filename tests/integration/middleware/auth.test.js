@@ -1,7 +1,7 @@
 /**
  * Dependencies
  */
-const request = require('superTest');
+const request = require('supertest');
 const {Room} = require('../../../models/room');
 const {User} = require('../../../models/user');
 

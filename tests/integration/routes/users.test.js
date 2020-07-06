@@ -1,7 +1,7 @@
 /**
  * Dependencies
  */
-const request = require('superTest');
+const request = require('supertest');
 const {User} = require('../../../models/user');
 const mongoose = require('mongoose');
 const debug = require('debug')('supptext:test_users');
