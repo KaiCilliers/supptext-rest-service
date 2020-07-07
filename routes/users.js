@@ -28,8 +28,8 @@ router.get('/me', auth, async (req, res) => {
  * POST
  */
 router.post('/', validateBody(joiValidate), async (req, res) => {
-    let user = User.findOne({ phone: req.body.phone });
-    if (user.length > 0) return res.status(400).send('User already registered with provided phone number.');
+    let user = await User.findOne({ phone: req.body.phone });
+    if (user) return res.status(400).send('User already registered with provided phone number.');
 
     user = new User(
         _.pick(req.body, [

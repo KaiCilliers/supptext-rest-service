@@ -206,21 +206,12 @@ describe('/api/users', () => {
             const res = await exec();
             expect(res.status).toBe(400);
         });
-        /**
-         * TODO
-         */
-        // it('should return 400 if a user exists with provided phone number', async () => {
-        //     let res = await exec();
-        //     const user = new User({
-        //         first_name: 'new',
-        //         last_name: 'new',
-        //         phone: '1234567890',
-        //         status: 'new'
-        //     });
-        //     user.save();
-        //     res = await exec();
-        //     expect(res.status).toBe(400);
-        // });
+        it('should return 400 if a user exists with provided phone number', async () => {
+            payload.phone = '0987654321'
+            let res = await exec();
+            res = await exec();
+            expect(res.status).toBe(400);
+        });
         it('should return 400 if status is less than 1 character', async () => {
             payload.status = '';
             const res = await exec();
