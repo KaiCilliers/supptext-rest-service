@@ -5,11 +5,28 @@ const appRoot = require('app-root-path');
 const { createLogger, format, transports } = require('winston');
 
 /**
- * Logging options
+ * Logging Transports
  */
 const options = {
-    file : {
-        filename: `${appRoot}/logs/app.log`,
+    combined_log : {
+        filename: `${appRoot}/logs/combined.log`,
+        level: 'info',
+        maxsize: 5242880, // 5MB
+        maxFiles: 5
+    },
+    error_log : {
+        filename: `${appRoot}/logs/errors.log`,
+        level: 'error',
+        maxsize: 5242880, // 5MB
+        maxFiles: 5
+    },
+    exception_log : {
+        filename: `${appRoot}/logs/exceptions.log`,
+        maxsize: 5242880, // 5MB
+        maxFiles: 5
+    },
+    rejection_log : {
+        filename: `${appRoot}/logs/rejections.log`,
         maxsize: 5242880, // 5MB
         maxFiles: 5
     },
@@ -18,8 +35,8 @@ const options = {
         format: format.combine(
             format.colorize(),
             format.simple()
-        ),
-        handleExceptions: true
+          ),
+          handleExceptions: true
     }
 }
 
@@ -29,12 +46,10 @@ const options = {
 let logger = createLogger({
     level: 'info',
     format: format.combine(
-        format.timestamp({
-            format: 'YYYY-MM-DD HH:mm:ss'
-        }),
+        format.timestamp(),
         format.errors({ stack: true }),
         format.splat(),
-        format.json()
+        format.prettyPrint()
     ),
     defaultMeta: {
         service: 'supptext-messenger-service'
@@ -43,7 +58,14 @@ let logger = createLogger({
      * Setup Transports
      */
     transports: [
-        new transports.File(options.file)
+        new transports.File(options.error_log),
+        new transports.File(options.combined_log)      
+    ],
+    exceptionHandlers: [
+        new transports.File(options.exception_log)
+    ],
+    rejectionHandlers: [
+        new transports.File(options.rejection_log)
     ],
     exitOnError: false // do not exit on handled exceptions
 });
