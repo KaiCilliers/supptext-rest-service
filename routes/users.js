@@ -19,6 +19,10 @@ router.get('/', [auth, admin], async (req, res) => {
     const users = await User.find();
     res.send(users);
 });
+router.get('/:id', async (req, res) => {
+    const users = await User.findById(req.params.id);
+    res.send(users);
+});
 router.get('/me', auth, async (req, res) => {
     const user = await User.findById(req.user._id);
     res.send(user);
