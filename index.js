@@ -33,7 +33,7 @@ require('./startup/prod')(app);
 /**
  * Listener
  */
-const server = app.listen(PORT, () => debug(`Listening on port ${port}...`));
+const server = app.listen(PORT, () => debug(`Listening on port ${PORT}...`));
 
 /**
  * Exports

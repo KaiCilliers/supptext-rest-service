@@ -1,5 +1,5 @@
 {
     "name": "My Express App - Production",
     "jwtPrivateKey": "",
-    "db": "mongodb://localhost/supptext_prod"
+    "db": ""
 }

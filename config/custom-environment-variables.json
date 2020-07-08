@@ -1,3 +1,4 @@
 {
-    "jwtPrivateKey": "supptext_jwtPrivateKey"
+    "jwtPrivateKey": "supptext_jwtPrivateKey",
+    "db": "MONGODB_URI"
 }
