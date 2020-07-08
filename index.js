@@ -18,7 +18,7 @@ process.on('unhandledRejection', (ex) => {
  * Setup
  */
 const app = express();
-const port = process.env.port || 3004;
+const PORT = process.env.PORT || 3004;
 
 /**
  * Startup Code
@@ -33,7 +33,7 @@ require('./startup/prod')(app);
 /**
  * Listener
  */
-const server = app.listen(port, () => debug(`Listening on port ${port}...`));
+const server = app.listen(PORT, () => debug(`Listening on port ${port}...`));
 
 /**
  * Exports
