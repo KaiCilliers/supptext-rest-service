@@ -16,6 +16,9 @@ const debug = require('debug')('supptext:auth');
  * User has to be logged out on the client, because
  * the authentication token should not be stored in
  * the database.
+ * 
+ * TODO
+ * send token as a header...
  */
 router.post('/', validateBody(validateLogin), async (req, res) => {
     let user = await User.findOne({ phone: req.body.phone });

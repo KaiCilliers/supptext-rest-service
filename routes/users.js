@@ -50,6 +50,9 @@ router.post('/', validateBody(joiValidate), async (req, res) => {
 
 /**
  * PATCH
+ * 
+ * TODO update to only be able to edit own data
+ * LMAO you never saved the updated user to the DB!
  */
 router.patch('/:id', [auth, validateObjectId, validateBody(joiValidate)], async (req, res) => {
     let user = await User.findById(req.params.id);

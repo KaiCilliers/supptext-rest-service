@@ -61,6 +61,9 @@ router.post('/', auth, async (req, res) => {
 
 /**
  * DELETE
+ * 
+ * TODO
+ * users should only be able to delete their own messages
  */
 router.delete('/:id', [auth, validateObjectId], async (req, res) => {
     const message = await Message.findByIdAndRemove(req.params.id);

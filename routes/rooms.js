@@ -11,6 +11,10 @@ const router = express.Router();
 
 /**
  * GET
+ * 
+ * TODO
+ * admin should only be able to call this
+ * also add more data to body like a room name
  */
 router.get('/', auth, async (req, res) => {
     const rooms = await Room.find();
@@ -35,6 +39,10 @@ router.post('/', [auth, validateBody(joiValidate)], async (req, res) => {
 
 /**
  * PUT
+ * 
+ * TODO
+ * put is used to replace object, if you just modify use patch
+ * only users that are members of the group should be able to edit if they have rights to do so
  */
 router.put('/:id', [auth, validateObjectId, validateBody(joiValidate)], async (req, res) => {
     const room = await Room.findById(req.params.id);

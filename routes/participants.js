@@ -57,6 +57,9 @@ router.post('/', auth, async (req, res) => {
 
 /**
  * DELETE
+ * 
+ * TODO
+ * dont send _ids via uri...
  */
 router.delete('/:id', [auth, validateObjectId], async (req, res) => {
     const participant = await Participant.findByIdAndRemove(req.params.id);
