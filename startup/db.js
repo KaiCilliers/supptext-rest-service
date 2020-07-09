@@ -7,6 +7,9 @@ const config = require('config');
 
 /**
  * Start Database Connection
+ * 
+ TODO
+ consider using process.env.MONGODB_URI for connections
  */
 module.exports = function() {
     const db = config.get('db');
