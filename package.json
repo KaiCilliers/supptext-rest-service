@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --coverage ./tests",
+    "test": "jest --verbose --detectOpenHandles --coverage ./tests",
     "start": "node index.js"
   },
   "engines": {
