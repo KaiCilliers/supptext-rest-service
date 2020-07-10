@@ -1,7 +1,9 @@
 /**
  * Dependencies
+ * 
+ * TODO run all tests without restarting app :/
  */
-const logger = require('../config/winston')
+const logger = require('../../config/winston')
 
 /**
  * Handle errors within Express context
