@@ -2,8 +2,8 @@
  * Dependencies
  */
 const request = require('supertest');
-const {Room} = require('../../../room/model');
-const {User} = require('../../../user/model');
+const {Room} = require('./model');
+const {User} = require('../user/model');
 const mongoose = require('mongoose');
 const debug = require('debug')('supptext:test_rooms');
 
@@ -20,7 +20,7 @@ describe('/api/rooms', () => {
      * Setup & Cleanup
      */
     beforeEach(async () => {
-        server = require('../../../../app');
+        server = require('../../app');
     });
     afterEach(async () => {
         await Room.deleteMany({});

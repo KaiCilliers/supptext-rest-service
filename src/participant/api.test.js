@@ -3,9 +3,9 @@
  */
 const request = require('supertest');
 const mongoose = require('mongoose');
-const {Message} = require('../../../message/model');
-const {User} = require('../../../user/model');
-const {Room} = require('../../../room/model');
+const {Participant} = require('./model');
+const {User} = require('../user/model');
+const {Room} = require('../room/model');
 
 /**
  * Server
@@ -15,15 +15,15 @@ let server;
 /**
  * Test Suite
  */
-describe('/api/messages', () => {
+describe('/api/participants', () => {
     /**
      * Setup & Cleanup
      */
     beforeEach(async () => {
-        server = require('../../../../app');
+        server = require('../../app');
     });
     afterEach(async () => {
-        await Message.deleteMany({});
+        await Participant.deleteMany({});
         await User.deleteMany({});
         await Room.deleteMany({});
         await server.close();
@@ -43,7 +43,7 @@ describe('/api/messages', () => {
          */
         const exec = async () => {
             return await request(server)
-                .get('/api/messages')
+                .get('/api/participants')
                 .set('x-auth-token', token);
         }
 
@@ -67,55 +67,59 @@ describe('/api/messages', () => {
         });
 
         // Response
-        it('should return all messages', async () => {
+        it('should return all participants', async () => {
             const roomId = mongoose.Types.ObjectId();
             const user1Id = mongoose.Types.ObjectId();
             const user2Id = mongoose.Types.ObjectId();
-            await Message.collection.insertMany([
+            await Participant.collection.insertMany([
                 {
-                    room : {
+                    room: {
                         _id: roomId,
-                        last_message: Date.now()
+                        created_at: Date.now,
+                        private: true,
+                        last_name: Date.now
                     },
                     user: {
                         _id: user1Id,
-                        first_name: '12',
+                        first_name: '11',
+                        last_name: '123',
                         phone: '1234567890',
+                        status: '1',
                         password: 'password1'
                     },
-                    content: '1',
-                    sent: true,
-                    received: false
+                    admin: true,
+                    creator: true
                 },
                 {
-                    room : {
+                    room: {
                         _id: roomId,
-                        last_message: Date.now()
+                        created_at: Date.now,
+                        private: false,
+                        last_name: Date.now
                     },
                     user: {
                         _id: user2Id,
-                        first_name: '33',
-                        phone: '0987654321',
-                        password: 'password2'
+                        first_name: '22',
+                        last_name: '333',
+                        phone: '12345678901',
+                        status: '2',
+                        password: 'password1'
                     },
-                    content: '2',
-                    sent: true,
-                    received: false
+                    admin: false,
+                    creator: false
                 }
             ]);
             const res = await exec();
 
             expect(res.status).toBe(200);
             expect(res.body.length).toBe(2);
-            expect(res.body.some(m => m.room._id === roomId.toHexString())).toBeTruthy();
-            expect(res.body.some(m => m.user._id === user1Id.toHexString())).toBeTruthy();
-            expect(res.body.some(m => m.user._id === user2Id.toHexString())).toBeTruthy();
-            expect(res.body.some(m => m.user.first_name === '12')).toBeTruthy();
-            expect(res.body.some(m => m.user.first_name === '33')).toBeTruthy();
-            expect(res.body.some(m => m.content === '1')).toBeTruthy();
-            expect(res.body.some(m => m.content === '2')).toBeTruthy();
-            expect(res.body.some(m => m.sent === true)).toBeTruthy();
-            expect(res.body.some(m => m.received === false)).toBeTruthy();
+            expect(res.body.some(p => p.room._id === roomId.toHexString())).toBeTruthy();
+            expect(res.body.some(p => p.user._id === user1Id.toHexString())).toBeTruthy();
+            expect(res.body.some(p => p.user._id === user2Id.toHexString())).toBeTruthy();
+            expect(res.body.some(p => p.admin === true)).toBeTruthy();
+            expect(res.body.some(p => p.admin === false)).toBeTruthy();
+            expect(res.body.some(p => p.creator === true)).toBeTruthy();
+            expect(res.body.some(p => p.creator === false)).toBeTruthy();
         });
     });
     
@@ -126,7 +130,7 @@ describe('/api/messages', () => {
         /**
          * Locals
          */
-        let messageId;
+        let participantId;
         let token;
 
         /**
@@ -134,7 +138,7 @@ describe('/api/messages', () => {
          */
         const exec = async () => {
             return await request(server)
-                .get(`/api/messages/${messageId}`)
+                .get(`/api/participants/${participantId}`)
                 .set('x-auth-token', token);
         }
 
@@ -142,7 +146,7 @@ describe('/api/messages', () => {
          * Setup & Cleanup
          */
         beforeEach(async () => {
-            messageId = mongoose.Types.ObjectId();
+            participantId = mongoose.Types.ObjectId();
             token = new User().generateAuthToken();
         });
 
@@ -159,18 +163,18 @@ describe('/api/messages', () => {
         });
 
         // Validation
-        it('should return 404 if message id is invalid', async () => {
-            messageId = '1';
+        it('should return 404 if participant id is invalid', async () => {
+            participantId = '1';
             const res = await exec();
             expect(res.status).toBe(404);
         });
 
         // Response
-        it('should return 404 if message with provided id was not found', async () => {
+        it('should return 404 if participant with provided id was not found', async () => {
             const res = await exec();
             expect(res.status).toBe(404);
         });
-        it('should return the message if input is valid', async () => {
+        it('should return the participant if input is valid', async () => {
             user = new User({
                 _id: mongoose.Types.ObjectId(),
                 first_name: '12',
@@ -192,9 +196,10 @@ describe('/api/messages', () => {
             const userInDb = await user.save();
             const roomInDb = await room.save();
             
-            const message = new Message({
-                room : {
+            const participant = new Participant({
+                room: {
                     _id: roomInDb._id,
+                    private: roomInDb.private,
                     last_message: roomInDb.last_message
                 },
                 user: {
@@ -203,17 +208,16 @@ describe('/api/messages', () => {
                     phone: userInDb.phone,
                     password: userInDb.password
                 },
-                content: '1',
-                sent: true,
-                received: false
+                admin: false,
+                creator: false
             });
-            await message.save();
+            await participant.save();
 
-            messageId = message._id;
+            participantId = participant._id;
 
             const res = await exec();
             expect(res.status).toBe(200);
-            expect(res.body).toHaveProperty('_id', messageId.toHexString());
+            expect(res.body).toHaveProperty('_id', participantId.toHexString());
             expect(res.body).toHaveProperty('user._id', userInDb._id.toHexString());
             expect(res.body).toHaveProperty('room._id', roomInDb._id.toHexString());
         });
@@ -230,7 +234,6 @@ describe('/api/messages', () => {
         let token;
         let userId;
         let roomId;
-        let content;
 
         /**
          * Setup & Cleanup
@@ -238,7 +241,6 @@ describe('/api/messages', () => {
         beforeEach(async () => {
             userId = mongoose.Types.ObjectId();
             roomId = mongoose.Types.ObjectId();
-            content = '1';
             token = new User().generateAuthToken();
 
             user = new User({
@@ -261,14 +263,8 @@ describe('/api/messages', () => {
 
             payload = {
                 userId,
-                roomId,
-                content
+                roomId
             }
-        });
-        afterEach(async () => {
-            await Message.deleteMany({});
-            await User.deleteMany({});
-            await Room.deleteMany({});
         });
 
         /**
@@ -276,7 +272,7 @@ describe('/api/messages', () => {
          */
         const exec = async () => {
             return await request(server)
-                .post('/api/messages')
+                .post('/api/participants')
                 .set('x-auth-token', token)
                 .send(payload);
         }
@@ -302,8 +298,8 @@ describe('/api/messages', () => {
             const res = await exec();
             expect(res.status).toBe(400);
         });
-
-        // Validation
+        
+        // // Validation
         it('should return 400 if userId is invalid', async () => {
             payload.userId = mongoose.Types.ObjectId();
             const res = await exec();
@@ -314,52 +310,42 @@ describe('/api/messages', () => {
             const res = await exec();
             expect(res.status).toBe(400);
         });
-        it('should return 400 if content is less than 1 character', async () => {
-            payload.content = '';
-            const res = await exec();
-            expect(res.status).toBe(400);
-        });
-        it('should return 400 if content is more than 255 character', async () => {
-            payload.content = new Array(257).join('a');
-            const res = await exec();
-            expect(res.status).toBe(400);
-        });
 
         // Response
-        it('should return 201 if new message was created', async () => {
+        it('should return 201 if new participant was created', async () => {
             const res = await exec();
             expect(res.status).toBe(201);
         });
-        it('should return the newly created message', async () => {
+        it('should return the newly created participant', async () => {
             const res = await exec();
             expect(res.body).toHaveProperty('room._id', roomId.toHexString());
-            expect(res.body).toHaveProperty('room.last_message');
+            expect(res.body).toHaveProperty('room.private');
             expect(res.body).toHaveProperty('user._id', userId.toHexString());
             expect(res.body).toHaveProperty('user.first_name');
             expect(res.body).toHaveProperty('user.phone');
-            expect(res.body).toHaveProperty('content', '1');
-            expect(res.body).toHaveProperty('sent', false);
-            expect(res.body).toHaveProperty('received', false);
+            expect(res.body).toHaveProperty('admin', false);
+            expect(res.body).toHaveProperty('creator', false);
         });
     });
 
     /**
      * Test Suite
      */
-    describe('DELETE /', () => {
+    describe('DELETE /:id', () => {
         /**
          * Locals
          */
-        let messageId;
+        let participantId;
         let token;
 
         /**
          * Setup & Cleanup
          */
         beforeEach(async () => {
-            message = new Message({
-                room : {
+            participant = new Participant({
+                room: {
                     _id: mongoose.Types.ObjectId(),
+                    private: true,
                     last_message: Date.now()
                 },
                 user: {
@@ -368,13 +354,12 @@ describe('/api/messages', () => {
                     phone: '1234567890',
                     password: 'password1'
                 },
-                content: '1',
-                sent: true,
-                received: false
+                admin: false,
+                creator: false
             });
-            await message.save();
+            await participant.save();
 
-            messageId = message._id;
+            participantId = participant._id;
             token = new User().generateAuthToken();
         });
 
@@ -383,7 +368,7 @@ describe('/api/messages', () => {
          */
         const exec = async () => {
             return await request(server)
-                .delete(`/api/messages/${messageId}`)
+                .delete(`/api/participants/${participantId}`)
                 .set('x-auth-token', token);
         }
 
@@ -400,26 +385,26 @@ describe('/api/messages', () => {
         });
 
         // Validation
-        it('should return 404 if message id is invalid', async () => {
-            messageId = '1';
+        it('should return 404 if participant id is invalid', async () => {
+            participantId = '1';
             const res = await exec();
             expect(res.status).toBe(404);
         });
 
         // Response
-        it('should return 404 if message with provided id was not found', async () => {
-            messageId = mongoose.Types.ObjectId();
+        it('should return 404 if participant with provided id was not found', async () => {
+            participantId = mongoose.Types.ObjectId();
             const res = await exec();
             expect(res.status).toBe(404);
         });
-        it('should delete the message if input is valid', async () => {
+        it('should delete the participant if input is valid', async () => {
             await exec();
-            const messageInDb = await Message.findById(messageId);
-            expect(messageInDb).toBeNull();
+            const participantInDb = await Participant.findById(participantId);
+            expect(participantInDb).toBeNull();
         });
-        it('should return the deleted message', async () => {
+        it('should return the deleted room', async () => {
             const res = await exec();
-            expect(res.body).toHaveProperty('_id', message._id.toHexString());
+            expect(res.body).toHaveProperty('_id', participant._id.toHexString());
         });
     });
 });

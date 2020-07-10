@@ -2,7 +2,7 @@
  * Dependencies
  */
 const request = require('supertest');
-const {User} = require('../../../user/model');
+const {User} = require('../user/model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const debug = require('debug')('supptext:test_auth');
@@ -19,7 +19,7 @@ describe('api/auth', () => {
     /**
      * Setup & Cleanup
      */
-    beforeEach(() => { server = require('../../../../app') });
+    beforeEach(() => { server = require('../../app') });
     afterEach(async () => {
         await User.deleteMany({});
         await server.close();

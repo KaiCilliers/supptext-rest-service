@@ -2,7 +2,7 @@
  * Dependencies
  */
 const request = require('supertest');
-const {User} = require('../../../user/model');
+const {User} = require('./model');
 const mongoose = require('mongoose');
 const debug = require('debug')('supptext:test_users');
 
@@ -18,7 +18,7 @@ describe('/api/users', () => {
     /**
      * Setup & Cleanup
      */
-    beforeEach(() => { server = require('../../../../app') });
+    beforeEach(() => { server = require('../../app') });
     afterEach(async () => {
         await User.deleteMany({});
         await server.close();
