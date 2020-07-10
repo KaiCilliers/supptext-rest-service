@@ -2,8 +2,10 @@
  * Dependencies
  */
 const request = require('supertest');
-const {Room} = require('../../../room/model');
-const {User} = require('../../../user/model');
+const auth = require('./auth');
+const mongoose = require('mongoose');
+const {Room} = require('../../room/model');
+const {User} = require('../../user/model');
 
 /**
  * Globals
@@ -13,7 +15,27 @@ let server;
 /**
  * Test Suite
  */
-describe('auth middleware', () => {
+describe('auth middleware unit', () => {
+    it('should populate req.user with the payload of a valid JWT', () => {
+        const user = {
+            _id: mongoose.Types.ObjectId().toHexString(),
+            isAdmin: true
+        }
+        const token = new User(user).generateAuthToken();
+        const req = {
+            header: jest.fn().mockReturnValue(token)
+        }
+        const res = {};
+        const next = jest.fn();
+
+        auth(req, res, next);
+
+        expect(req.user).toBeDefined();
+        expect(req.user).toMatchObject(user);
+    });
+});
+
+describe('auth middleware integration', () => {
     /**
      * Locals
      */
@@ -23,7 +45,7 @@ describe('auth middleware', () => {
      * Setup & Cleanup
      */
     beforeEach(() => {
-        server = require('../../../../app');
+        server = require('../../../app');
         token = new User().generateAuthToken();
     });
     afterEach(async () => {
