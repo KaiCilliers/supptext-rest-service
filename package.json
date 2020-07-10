@@ -4,8 +4,11 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "semistandard && jest --watchAll --verbose --detectOpenHandles --coverage ./src",
+    "test": "jest --watchAll --verbose --detectOpenHandles --coverage ./src",
     "start": "node app.js"
+  },
+  "semistandard": {
+    "env": [ "jest" ]
   },
   "engines": {
     "node": "12.18.2"
