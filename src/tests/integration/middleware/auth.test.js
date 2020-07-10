@@ -23,7 +23,7 @@ describe('auth middleware', () => {
      * Setup & Cleanup
      */
     beforeEach(() => {
-        server = require('../../../index');
+        server = require('../../../../app');
         token = new User().generateAuthToken();
     });
     afterEach(async () => {

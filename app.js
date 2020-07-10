@@ -14,7 +14,7 @@
  */
 const express = require('express');
 const debug = require('debug')('supptext:startup');
-const logger = require('../config/winston');
+const logger = require('./config/winston');
 
 /**
  * Throw async errors synchronously
@@ -34,12 +34,12 @@ const PORT = process.env.PORT || 3004;
 /**
  * Startup Code
  */
-require('./startup/display-config-values')();
-require('./startup/routes')(app);
-require('./startup/db')();
-require('./startup/config')();
-require('./startup/validation')();
-require('./startup/prod')(app);
+require('./src/startup/display-config-values')();
+require('./src/startup/routes')(app);
+require('./src/startup/db')();
+require('./src/startup/config')();
+require('./src/startup/validation')();
+require('./src/startup/prod')(app);
 
 /**
  * Listener

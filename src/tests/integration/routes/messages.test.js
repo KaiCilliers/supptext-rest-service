@@ -20,7 +20,7 @@ describe('/api/messages', () => {
      * Setup & Cleanup
      */
     beforeEach(async () => {
-        server = require('../../../index');
+        server = require('../../../../app');
     });
     afterEach(async () => {
         await Message.deleteMany({});

@@ -19,7 +19,7 @@ describe('api/auth', () => {
     /**
      * Setup & Cleanup
      */
-    beforeEach(() => { server = require('../../../index') });
+    beforeEach(() => { server = require('../../../../app') });
     afterEach(async () => {
         await User.deleteMany({});
         await server.close();
