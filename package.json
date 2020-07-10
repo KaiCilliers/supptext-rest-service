@@ -39,6 +39,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "eslint": "^7.4.0",
     "supertest": "^4.0.2"
   }
 }
