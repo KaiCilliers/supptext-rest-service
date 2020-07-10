@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const morgan = require('morgan');
-const winston = require('../config/winston');
+const winston = require('../../config/winston');
 const error = require('../middleware/error');
 const debug = require('debug')('supptext:routes');
 const users = require('../routes/users');

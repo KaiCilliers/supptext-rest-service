@@ -14,7 +14,7 @@
  */
 const express = require('express');
 const debug = require('debug')('supptext:startup');
-const logger = require('./config/winston');
+const logger = require('../config/winston');
 
 /**
  * Throw async errors synchronously
