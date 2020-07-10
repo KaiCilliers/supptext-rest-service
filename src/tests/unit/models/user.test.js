@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('config');
-const {User} = require('../../../models/user');
+const {User} = require('../../../user/model');
 
 /**
  * Test Suite

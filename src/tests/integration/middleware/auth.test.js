@@ -2,8 +2,8 @@
  * Dependencies
  */
 const request = require('supertest');
-const {Room} = require('../../../models/room');
-const {User} = require('../../../models/user');
+const {Room} = require('../../../room/model');
+const {User} = require('../../../user/model');
 
 /**
  * Globals

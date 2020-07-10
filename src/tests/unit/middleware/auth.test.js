@@ -1,7 +1,7 @@
 /**
  * Dependencies
  */
-const {User} = require('../../../models/user');
+const {User} = require('../../../user/model');
 const auth = require('../../../middleware/auth');
 const mongoose = require('mongoose');
 

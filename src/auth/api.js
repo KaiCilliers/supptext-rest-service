@@ -5,7 +5,7 @@ const express = require('express');
 const router = express.Router();
 const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
-const {User} = require('../models/user');
+const {User} = require('../user/model');
 const validateBody = require('../middleware/validate');
 const debug = require('debug')('supptext:auth');
 

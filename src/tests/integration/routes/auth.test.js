@@ -2,7 +2,7 @@
  * Dependencies
  */
 const request = require('supertest');
-const {User} = require('../../../models/user');
+const {User} = require('../../../user/model');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const debug = require('debug')('supptext:test_auth');
