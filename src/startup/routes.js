@@ -10,7 +10,7 @@ const users = require('../user/api');
 const rooms = require('../room/api');
 const participants = require('../participant/api');
 const messages = require('../message/api');
-const auth = require('../auth/api');
+const auth = require('../login/login');
 
 /**
  * Setup Middleware
