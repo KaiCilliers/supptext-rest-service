@@ -11,6 +11,8 @@
  * Proper error handling? Leave for later?
  * reconfigure winston logs
  * 
+ add use strict to all files
+ * 
  */
 const express = require('express');
 const debug = require('debug')('supptext:startup');
