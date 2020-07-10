@@ -6,11 +6,11 @@ const morgan = require('morgan');
 const winston = require('../../config/winston');
 const error = require('../middleware/error');
 const debug = require('debug')('supptext:routes');
-const users = require('../routes/users');
-const rooms = require('../routes/rooms');
-const participants = require('../routes/participants');
-const messages = require('../routes/messages');
-const auth = require('../routes/auth');
+const users = require('../user/api');
+const rooms = require('../room/api');
+const participants = require('../participant/api');
+const messages = require('../message/api');
+const auth = require('../auth/api');
 
 /**
  * Setup Middleware
