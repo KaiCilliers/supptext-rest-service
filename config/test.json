@@ -1,7 +1,7 @@
 {
     "mode": "Supptext API is in TEST environment",
-    "jwtPrivateKey": "supptext_jwtPrivateKey",
+    "jwtPrivateKey": "1234",
     "dbCongig": {
-        "host": "MONGODB_URI"
+        "host": "mongodb://heroku_d49c0d4d:ov2u8s6uaabhtroif63qs7hi2c@ds243717.mlab.com:43717/heroku_d49c0d4d"
     }
 }
