@@ -1,6 +1,6 @@
 {
     "mode": "Supptext API is in DEVELOPMENT environment",
     "dbConfig": {
-        "host": "mongodb://localhost/supptext"
+        "host": "mongodb://heroku_d49c0d4d:ov2u8s6uaabhtroif63qs7hi2c@ds243717.mlab.com:43717/heroku_d49c0d4d"
     }
 }
