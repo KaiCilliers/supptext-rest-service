@@ -12,6 +12,11 @@
  * reconfigure winston logs
  *
  add use strict to all files
+
+ Rename files
+ user
+ user-model
+ user-api
  *
  */
 const express = require('express');
@@ -36,7 +41,7 @@ const PORT = process.env.PORT || 3004;
  * Startup Code
  */
 if (!app.get('env') === 'production') {
-  require('./src/startup/display-config-values')();
+  require('./src/startup/displayConfigValues')();
 }
 require('./src/startup/routes')(app);
 require('./src/startup/db')();

@@ -4,13 +4,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const winston = require('../../config/winston');
-const error = require('../middleware/error');
+const error = require('../middleware/error/error');
 const debug = require('debug')('supptext:routes');
-const users = require('../user/api');
-const rooms = require('../room/api');
-const participants = require('../participant/api');
-const messages = require('../message/api');
-const auth = require('../login/login');
+const users = require('../user/userAPI');
+const rooms = require('../room/roomAPI');
+const participants = require('../participant/participantAPI');
+const messages = require('../message/messageAPI');
+const auth = require('../login/loginAPI');
 
 /**
  * Setup Middleware

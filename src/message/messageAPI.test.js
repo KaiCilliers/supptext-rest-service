@@ -3,9 +3,9 @@
  */
 const request = require('supertest');
 const mongoose = require('mongoose');
-const { Message } = require('./model');
-const { User } = require('../user/model');
-const { Room } = require('../room/model');
+const { Message } = require('./mesage');
+const { User } = require('../user/user');
+const { Room } = require('../room/room');
 
 /**
  * Server

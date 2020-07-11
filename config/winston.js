@@ -10,7 +10,7 @@ const { createLogger, format, transports } = require('winston');
 const options = {
   combined_log: {
     filename: `${appRoot}/logs/combined.log`,
-    level: 'info',
+    level: 'verbose',
     maxsize: 5242880, // 5MB
     maxFiles: 5
   },
@@ -46,7 +46,7 @@ const options = {
 const logger = createLogger({
   level: 'info',
   format: format.combine(
-    format.timestamp(),
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.errors({ stack: true }),
     format.splat(),
     format.prettyPrint()
@@ -54,9 +54,6 @@ const logger = createLogger({
   defaultMeta: {
     service: 'supptext-messenger-service'
   },
-  /**
-     * Setup Transports
-     */
   transports: [
     new transports.File(options.error_log),
     new transports.File(options.combined_log)

@@ -4,8 +4,8 @@
 const request = require('supertest');
 const auth = require('./auth');
 const mongoose = require('mongoose');
-const { Room } = require('../../room/model');
-const { User } = require('../../user/model');
+const { Room } = require('../../room/room');
+const { User } = require('../../user/user');
 
 /**
  * Globals

@@ -2,7 +2,7 @@
  * Dependencies
  */
 const request = require('supertest');
-const { User } = require('../user/model');
+const { User } = require('../user/user');
 require('mongoose');
 
 /**
@@ -13,7 +13,7 @@ let server;
 /**
  * Test Suite
  */
-describe('api/auth', () => {
+describe('api/login', () => {
   /**
      * Setup & Cleanup
      */
