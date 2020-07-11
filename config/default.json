@@ -1,5 +1,6 @@
 {
-    "name": "My Express App - Development (Default)",
-    "jwtPrivateKey": "",
-    "db": "mongodb://localhost/supptext"
+    "mode": "Supptext API is in DEVELOPMENT environment",
+    "dbConfig": {
+        "host": "mongodb://heroku_d49c0d4d:ov2u8s6uaabhtroif63qs7hi2c@ds243717.mlab.com:43717/heroku_d49c0d4d"
+    }
 }

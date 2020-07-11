@@ -1,5 +1,7 @@
 {
-    "name": "My Express App - Production",
+    "mode": "Supptext API is in PRODUCTION environment",
     "jwtPrivateKey": "",
-    "db": ""
+    "dbConfig": {
+        "host": ""
+    }
 }

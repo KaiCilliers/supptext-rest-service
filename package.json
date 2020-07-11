@@ -2,10 +2,13 @@
   "name": "supptext-rest-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "jest --forceExit --coverage ./tests",
-    "start": "node index.js"
+    "test": "jest --forceExit --coverage ./src",
+    "start": "node app.js"
+  },
+  "semistandard": {
+    "env": [ "jest" ]
   },
   "engines": {
     "node": "12.18.2"
@@ -39,6 +42,8 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "eslint": "^7.4.0",
+    "semistandard": "^14.2.2",
     "supertest": "^4.0.2"
   }
 }
