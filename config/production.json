@@ -1,3 +1,7 @@
 {
-    "mode": "Supptext API is in PRODUCTION environment"
+    "mode": "Supptext API is in PRODUCTION environment",
+    "jwtPrivateKey": "",
+    "dbConfig": {
+        "host": ""
+    }
 }
