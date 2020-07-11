@@ -1,3 +1,7 @@
 {
-    "mode": "Supptext API is in TEST environment"
+    "mode": "Supptext API is in TEST environment",
+    "jwtPrivateKey": "supptext_jwtPrivateKey",
+    "dbCongig": {
+        "host": "MONGODB_URI"
+    }
 }
