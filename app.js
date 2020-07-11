@@ -12,6 +12,11 @@
  * reconfigure winston logs
  *
  add use strict to all files
+
+ Rename files
+ user
+ user-model
+ user-api
  *
  */
 const express = require('express');
