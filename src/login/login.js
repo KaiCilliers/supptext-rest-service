@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 const { User } = require('../user/model');
 const validateBody = require('../middleware/validate');
 const debug = require('debug')('supptext:api_login');
+const tryCatch = require('../middleware/asyncErrorWrapper');
 
 /**
  * POST
@@ -20,24 +21,20 @@ const debug = require('debug')('supptext:api_login');
  * TODO
  * send token as a header...
  */
-router.post('/', validateBody(validateLogin), async (req, res) => {
-  try {
-    debug('Finding a user matching request...');
-    const user = await User.findOne({ phone: req.body.phone });
-    if (!user) return res.status(404).send('Invalid login.');
+router.post('/', validateBody(validateLogin), tryCatch(async (req, res) => {
+  debug('Finding a user matching request...');
+  const user = await User.findOne({ phone: req.body.phone });
+  if (!user) return res.status(404).send('Invalid login.');
 
-    debug('Checking if provided password is valid...');
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).send('Invalid credentials');
+  debug('Checking if provided password is valid...');
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) return res.status(400).send('Invalid credentials');
 
-    debug('Generating user authentication token...');
-    const token = user.generateAuthToken();
+  debug('Generating user authentication token...');
+  const token = user.generateAuthToken();
 
-    res.send(token);
-  } catch (err) {
-    debug(err);
-  }
-});
+  res.send(token);
+}));
 // TODO create user and check in postman what token is sent back when you auth routejksadiopsioadnh
 /**
  * Functions
