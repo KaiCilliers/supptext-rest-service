@@ -7,7 +7,7 @@ const Joi = require('@hapi/joi');
 const bcrypt = require('bcrypt');
 const { User } = require('../user/model');
 const validateBody = require('../middleware/validate');
-const debug = require('debug')('supptext:login');
+const debug = require('debug')('supptext:api_login');
 
 /**
  * POST
