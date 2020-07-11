@@ -41,7 +41,7 @@ const PORT = process.env.PORT || 3004;
  * Startup Code
  */
 if (!app.get('env') === 'production') {
-  require('./src/startup/display-config-values')();
+  require('./src/startup/displayConfigValues')();
 }
 require('./src/startup/routes')(app);
 require('./src/startup/db')();
