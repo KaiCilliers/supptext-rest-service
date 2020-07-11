@@ -8,7 +8,9 @@
     "start": "node app.js"
   },
   "semistandard": {
-    "env": [ "jest" ]
+    "env": [
+      "jest"
+    ]
   },
   "engines": {
     "node": "12.18.2"
@@ -39,6 +41,7 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
+    "pm2": "^4.4.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {

@@ -2,9 +2,9 @@
  * Dependencies
  */
 const express = require('express');
-const { Message, joiValidate } = require('./model');
-const { Room } = require('../room/model');
-const { User } = require('../user/model');
+const { Message, joiValidate } = require('./mesage');
+const { Room } = require('../room/room');
+const { User } = require('../user/user');
 const validateObjectId = require('../middleware/validateObjectId');
 const validateBody = require('../middleware/validate');
 const auth = require('../middleware/auth/auth');

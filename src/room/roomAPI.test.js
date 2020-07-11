@@ -2,8 +2,8 @@
  * Dependencies
  */
 const request = require('supertest');
-const { Room } = require('./model');
-const { User } = require('../user/model');
+const { Room } = require('./room');
+const { User } = require('../user/user');
 const mongoose = require('mongoose');
 
 /**
