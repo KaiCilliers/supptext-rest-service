@@ -1,3 +1,4 @@
+'use strcit';
 require('./error');
 
 describe('startup / logging', () => {

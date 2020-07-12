@@ -1,3 +1,4 @@
+'use strcit';
 /**
  * A route passes it's model's sepcific
  * 'joiValidate' function to validate

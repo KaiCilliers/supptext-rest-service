@@ -1,3 +1,4 @@
+'use strcit';
 /**
  * Wraps all routes with a try catch
  * There is a module 'express-async-errors' that also does this

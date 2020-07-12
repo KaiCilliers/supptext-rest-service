@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --forceExit --coverage ./src",
+    "test": "jest --verbose --detectOpenHandles --coverage ./src",
     "start": "node app.js"
   },
   "semistandard": {
@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "eslint": "^7.4.0",
+    "eslint-plugin-node": "^11.1.0",
     "semistandard": "^14.2.2",
     "supertest": "^4.0.2"
   }
