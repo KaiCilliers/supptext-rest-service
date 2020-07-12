@@ -4,6 +4,9 @@
  * TODO
  * Check that your file size is at most between 300 to 500 lines of code, if not break into smaller files
  * Implement proper code comments
+ * make a server that is shared among all test files :)
+ * JSDoc and swagger for documentation
+ * assign transactionId to each log statement
  *
  */
 const express = require('express');
