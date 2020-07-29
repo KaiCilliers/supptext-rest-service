@@ -13,6 +13,7 @@ const participants = require('../participant/participantAPI');
 const messages = require('../message/messageAPI');
 const person = require('../person/personAPI');
 const conversation = require('../conversation/conversationAPI');
+const betterMessage = require('../bettermessage/betterMessageAPI');
 const auth = require('../login/loginAPI');
 
 /**
@@ -26,6 +27,7 @@ module.exports = function (app) {
   }
   app.use('/api/v2/person', person);
   app.use('/api/v2/conversation', conversation);
+  app.use('/api/v2/bettermessage', betterMessage);
   app.use('/api/users', users);
   app.use('/api/rooms', rooms);
   app.use('/api/participants', participants);

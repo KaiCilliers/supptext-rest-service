@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
  * Schema and Model
  */
 const betterMessageSchema = new mongoose.Schema({
-  converstaion: { type: mongoose.Types.ObjectId, required: true },
+  conversation: { type: mongoose.Types.ObjectId, required: true },
   author: { type: mongoose.Types.ObjectId, required: true },
   body: {
     type: String,
@@ -55,9 +55,9 @@ const BetterMessage = mongoose.model('BetterMesssage', betterMessageSchema);
  */
 function validateBetterMessage (betterMessage) {
   const schema = {
-    userId: Joi.objectId().required(),
-    roomId: Joi.objectId().required(),
-    content: Joi.string().min(1).max(255).required()
+    conversation: Joi.objectId().required(),
+    author: Joi.objectId().required(),
+    body: Joi.string().min(1).max(255).required()
   };
   return Joi.validate(betterMessage, schema);
 }
