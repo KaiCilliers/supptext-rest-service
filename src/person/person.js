@@ -6,6 +6,7 @@ const Joi = require('@hapi/joi');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const debug = require('debug')('supptext:person');
 
 /**
  * Models with Schemas
@@ -51,6 +52,8 @@ const personSchema = new mongoose.Schema({
 });
 personSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id, isAdmin: this.isAdmin }, config.get('jwtPrivateKey'));
+  debug(`JWT sign params: ${this._id}, ${this.isAdmin}`);
+  debug(`JWT sign result: ${token}`);
   return token;
 };
 const Person = mongoose.model('Person', personSchema);

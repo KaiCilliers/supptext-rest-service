@@ -17,7 +17,7 @@ const tryCatch = require('../middleware/asyncErrorWrapper');
 /**
  * Fetch all registered phone numbers as list
  */
-router.get('/', auth, tryCatch(async (req, res) => {
+router.get('/phones', auth, tryCatch(async (req, res) => {
   debug('GET / person - Fetching all registered numbers...');
   const result = await Person.find();
   const phoneList = result.map(person => person.phone);

@@ -15,6 +15,7 @@ const debug = require('debug')('supptext:middleware_auth');
 module.exports = function auth (req, res, next) {
   debug('Verifying existance of authorization token...');
   const token = req.header('x-auth-token');
+  debug(`Header value: ${token}`);
   if (!token) return res.status(401).send('Access denied. No token provided');
 
   try {
@@ -22,7 +23,6 @@ module.exports = function auth (req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    debug(err);
     res.status(400).send('Invalid token');
   }
 };
