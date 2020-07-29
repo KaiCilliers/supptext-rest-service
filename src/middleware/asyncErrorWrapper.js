@@ -1,4 +1,6 @@
 'use strcit';
+
+const debug = require('debug')('supptext:async_error_wrapper');
 /**
  * Wraps all routes with a try catch
  * There is a module 'express-async-errors' that also does this
@@ -10,6 +12,7 @@ module.exports = function (handler) {
     try {
       await handler(req, res);
     } catch (err) {
+      debug(err);
       next(err);
     }
   };

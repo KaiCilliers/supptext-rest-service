@@ -16,6 +16,7 @@ const conversationSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
+  direct: { type: Boolean, default: false },
   last_message: { type: mongoose.Types.ObjectId },
   members: [{ type: mongoose.Types.ObjectId }],
   admins: [{ type: mongoose.Types.ObjectId }],
@@ -27,17 +28,22 @@ const Conversation = mongoose.model('Conversation', conversationSchema);
  * Functions
  *
  * Validate data provided by client
+ * Multiple validates for group and private
  */
 function validateConversation (conversation) {
   const schema = {
-    name: Joi.String().max(50),
-    description: Joi.String().max(255),
-    creator: Joi.string(),
-    created_at: Joi.date(),
-    last_message: Joi.string(),
-    members: Joi.array.items(Joi.string()),
-    admins: Joi.array.items(Joi.string()),
-    messsages: Joi.array.items(Joi.string())
+    name: Joi.string().max(50),
+    description: Joi.string().max(255),
+    creator: Joi.objectId().required()
+  };
+  return Joi.validate(conversation, schema);
+}
+function validatePrivateConversation (conversation) {
+  const schema = {
+    creator: Joi.objectId().required(),
+    direct: Joi.boolean().required(),
+    /** naming convension is both user IDs seperated with colon (:) */
+    name: Joi.string().required()
   };
   return Joi.validate(conversation, schema);
 }
@@ -47,5 +53,6 @@ function validateConversation (conversation) {
  */
 module.exports = {
   Conversation: Conversation,
-  joiValidate: validateConversation
+  joiValidate2: validateConversation,
+  joiPrivateValidate: validatePrivateConversation
 };

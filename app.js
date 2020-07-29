@@ -16,6 +16,7 @@ const logger = require('./config/winston');
 /**
  * Throw async errors synchronously
  */
+/** apm test in package.json = for production remove detect and verbose and replace with forceExjt */
 process.on('unhandledRejection', (ex) => {
   logger.error(new Error(ex));
   throw ex;
