@@ -24,6 +24,16 @@ router.get('/phones', auth, tryCatch(async (req, res) => {
   res.send(phoneList);
 }));
 
+/**
+ * Get person by name
+ */
+router.get('/debug/name/:name', tryCatch(async (req, res) => {
+  debug('DEBUG GET /debug/name/:name person - Fetching person by name');
+  const person = await Person.findOne({ display_name: req.params.name });
+  if (!person) return res.status(400).send(`Person with name: ${req.params.name} does not exist`);
+  return res.status(200).send(person);
+}));
+
 /** POST */
 
 /**
