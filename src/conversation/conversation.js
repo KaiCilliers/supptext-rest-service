@@ -17,7 +17,7 @@ const conversationSchema = new mongoose.Schema({
     default: Date.now
   },
   direct: { type: Boolean, default: false },
-  last_message: { type: mongoose.Types.ObjectId },
+  last_message: { type: mongoose.Types.ObjectId, default: '' },
   members: [{ type: mongoose.Types.ObjectId }],
   admins: [{ type: mongoose.Types.ObjectId }],
   messages: [{ type: mongoose.Types.ObjectId }]
