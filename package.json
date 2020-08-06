@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --verbose --coverage ./src",
+    "test": "jest --detectOpenHandles --forceExit --verbose --coverage ./src",
     "start": "node app.js"
   },
   "semistandard": {
